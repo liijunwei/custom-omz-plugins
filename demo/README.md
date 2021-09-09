@@ -1,0 +1,5 @@
+# demo omz plugin
+
+```bash
+:-)
+```
