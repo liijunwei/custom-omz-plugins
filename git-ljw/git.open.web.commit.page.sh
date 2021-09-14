@@ -25,7 +25,7 @@ function git-view-in-web() {
 
 USAGE: git-view-in-web branch (flag)
 -------------------------------------------------------------
-cd $HOME/OuterGitRepo/rails
+cd \$HOME/OuterGitRepo/rails
 git-view-in-web demobranch_123   # Show HEAD commit in browser, for code review.
 git-view-in-web demobranch_123 x # Show branch \`demobranch_123\` info only, for link sharing.
 -------------------------------------------------------------
