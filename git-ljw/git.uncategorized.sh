@@ -39,7 +39,7 @@ function gco() {
 }
 
 # 使用别名不好实现
-# git checkout -b xxx && git push to origin
+# git checkout -b xxx && git push --set-upstream origin xxx
 function gcobp() {
   if [ $# -eq 0 ]; then
     echo "作用: checkout一个新分支, 并且推送到远端仓库."
