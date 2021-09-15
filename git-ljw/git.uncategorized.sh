@@ -58,22 +58,22 @@ function get-commit-message-by-commit-id() {
 
 # 获取前N个commit的commit号, 用于cherry-pick
 function get-0-to-N-commits() {
-  local commit_num=$1
-  echo "找出 $(git rev-parse --abbrev-ref HEAD) 分支最新的 (0..$commit_num) commits"
+  local commit_id=$1
+  echo "找出 $(git rev-parse --abbrev-ref HEAD) 分支最新的 (0..$commit_id) commits"
 
-  for i in {0..$commit_num}; do
+  for i in {0..$commit_id}; do
     local commit_id=$(git rev-parse  HEAD~$i)
     echo "git cherry-pick $commit_id ; # 第 $i 个 $(get-commit-message-by-commit-id $commit_id)";
   done
 }
 
 function git-show-commit-files() {
-  local commit_num=$1
+  local commit_id=$1
 
-  if [ -z "${commit_num}" ]; then
-    local commit_num=$(git rev-parse --abbrev-ref HEAD)
+  if [ -z "${commit_id}" ]; then
+    local commit_id=$(git rev-parse --abbrev-ref HEAD)
   fi
 
-  git show --pretty="" --name-only $commit_num | cat
+  git show --pretty="" --name-only $commit_id | cat
 }
 
