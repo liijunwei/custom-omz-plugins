@@ -1,9 +1,5 @@
 # Custom omz git plugins
 
-```bash
-:-)
-```
-
 **entry: git-ljw.plugin.zsh**
 
 ### how to enable this plugin?
