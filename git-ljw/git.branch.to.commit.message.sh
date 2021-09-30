@@ -4,6 +4,7 @@ function prepend_commit_message {
   if [ -z "$branches_to_skip" ]; then
     branches_to_skip=(
       master
+      incidents
       main
       ljw
       cv_zh
