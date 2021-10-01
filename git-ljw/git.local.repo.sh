@@ -58,6 +58,11 @@ function do_setup_local_repo(){
   echo "$local_repo_dir/${local_repo_name}.git"
 }
 
+function do_setup_remote(){
+  local repo="$1"
+
+}
+
 function do_rollback(){
   local info="$1"
   echo $info | sed 's/origin//' | sed 's/fetch//'  | sed 's/push//' | sed 's/()//'
@@ -76,7 +81,6 @@ function git-push-local-repo() {
   fi
 
   do_log_rollback_info
-  echo
-  do_setup_local_repo "$local_repo_name"
-  echo "Hi from git-push-local-repo..."
+  local local_repo=$(do_setup_local_repo "$local_repo_name")
+  do_setup_remote "$local_repo"
 }
