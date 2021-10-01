@@ -1,5 +1,10 @@
 #!/bin/bash
 
+function trim_remote_info(){
+  local info="$1"
+  echo $info | sed 's/origin//' | sed 's/fetch//'  | sed 's/push//' | sed 's/()//'
+}
+
 # TODO
 #
 # 1. make dir in $HOME/local.repo
@@ -7,13 +12,21 @@
 # 3. set local_repo as current repo's origin(`git remote add origin file://$HOME/local.repo/demo.git`)
 # 4. push
 function git-push-local-repo() {
-  echo "current remote config:"
+  local backup_file="${_git_ljw_path}git.local.repo.remote.backup"
+  echo "Backup current remote config: $backup_file"
   echo "------------------------"
   git remote -vv
+  date >> "$_git_ljw_path/git.local.repo.remote.backup"
+  git remote -vv >> "$_git_ljw_path/git.local.repo.remote.backup"
   echo
   echo "Rollback method:"
   echo "------------------------"
-  echo "This is how I Rollback..."
+  local rollback_origin_push=$(trim_remote_info "$(tail -n1 $backup_file)")
+  cat << EOF
+git remote remove origin
+git remote add origin $rollback_origin_push
+
+EOF
 
   echo
   echo "Hi from git-push-local-repo..."
