@@ -2,16 +2,16 @@
 
 # TODO 不要泄露这么多无用的function
 
-function do_trim_remote_info(){
+function _do_trim_remote_info(){
   local info="$1"
   echo $info | sed 's/origin//' | sed 's/fetch//'  | sed 's/push//' | sed 's/()//'
 }
 
-function git_remote_backup_file(){
+function _git_remote_backup_file(){
   echo "${_git_ljw_path}/git.local.repo.remote.backup"
 }
 
-function do_log_rollback_info(){
+function _do_log_rollback_info(){
   git remote -vv >> /dev/null
 
   if [[ "$?" != 0 ]]; then
@@ -19,7 +19,7 @@ function do_log_rollback_info(){
     return 1
   fi
 
-  local file=$(git_remote_backup_file)
+  local file=$(_git_remote_backup_file)
   echo "Backup current remote config"
   echo "------------------------"
   git remote -vv
@@ -31,56 +31,54 @@ function do_log_rollback_info(){
   echo "------------------------"
   echo "$file"
   echo
-  do_print_rollback_info "$file"
+  _do_print_rollback_info "$file"
 }
 
-function do_print_rollback_info(){
+function _do_print_rollback_info(){
   local file=$1
 
   echo "Rollback method:"
   echo "------------------------"
-  local rollback_origin_push=$(do_trim_remote_info "$(tail -n1 $file)")
+  local rollback_origin_push=$(_do_trim_remote_info "$(tail -n1 $file)")
   cat << EOF
 git remote remove origin
 git remote add origin $rollback_origin_push
 EOF
 }
 
-function do_setup_local_repo(){
+function _do_setup_local_repo(){
   local local_repo_dir="$HOME/local.repo"
   cd $local_repo_dir
 
   local local_repo_name="$1"
-  git init --bare "${local_repo_name}.git" >> $(git_remote_backup_file)
+  git init --bare "${local_repo_name}.git" >> $(_git_remote_backup_file)
 
-  echo "Local Repo"
-  echo "------------------------"
   echo "$local_repo_dir/${local_repo_name}.git"
 }
 
-function do_setup_remote(){
+function _do_setup_remote(){
   local repo="$1"
-
+  git remote add origin "file://$repo"
+  git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+  echo
+  git remote -vv
+  echo
 }
 
+# TODO
 function do_rollback(){
   local info="$1"
   echo $info | sed 's/origin//' | sed 's/fetch//'  | sed 's/push//' | sed 's/()//'
 }
 
-# TODO
-#
-# 1. make dir in $HOME/local.repo
-# 2. unset current repo's origin
-# 3. set local_repo as current repo's origin(`git remote add origin file://$HOME/local.repo/demo.git`)
-# 4. push
+# TODO unset all other functions
 function git-push-local-repo() {
   local local_repo_name=$1
   if [[ "" == "$local_repo_name" ]]; then
     local local_repo_name="tmp_$(date "+%Y%m%d%H%M%S")"
   fi
 
-  do_log_rollback_info
-  local local_repo=$(do_setup_local_repo "$local_repo_name")
-  do_setup_remote "$local_repo"
+  _do_log_rollback_info
+  local local_repo=$(_do_setup_local_repo "$local_repo_name")
+  _do_setup_remote "$local_repo"
 }
