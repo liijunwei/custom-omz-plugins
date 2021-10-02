@@ -80,14 +80,6 @@ function git-push-local-repo() {
 
   _do_log_rollback_info
 
-  git remote -vv >> /dev/null
-  if [[ "$?" == 0 ]]; then
-    echo
-    echo "No need to setup origin"
-    echo
-    return 2
-  fi
-
   local local_repo=$(_do_setup_local_repo "$local_repo_name")
   _do_setup_remote "$local_repo"
 }
