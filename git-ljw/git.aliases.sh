@@ -12,7 +12,6 @@ alias gcam='git commit -v -a --no-edit --amend'
 alias gcob="git checkout -b"
 alias gpo='git push origin '
 alias groh='git reset --hard HEAD@{u}'
-alias gst="git status && git log | head -n1 | cut -d ' ' -f 2 | tee /dev/tty | pbcopy"
 alias jj="gaa;gcmsg 'DEBUG.';gp;"
 alias t="tig"
 alias ts='tig show HEAD'
