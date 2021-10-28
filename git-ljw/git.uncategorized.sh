@@ -38,6 +38,12 @@ function gco() {
   git log | head -n1;
 }
 
+unalias gst
+function gst() {
+  git status
+  git log | head -n1;
+}
+
 # 使用别名不好实现
 # git checkout -b xxx && git push --set-upstream origin xxx
 function gcobp() {
