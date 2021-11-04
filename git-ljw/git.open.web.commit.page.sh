@@ -6,7 +6,9 @@ function git-view-in-web() {
 
   local branch_or_commit_id=$1;
   local current_branch=$(git rev-parse --abbrev-ref HEAD)
-  local real_branch=${branch_or_commit_id:-"$current_branch"}
+  local branch_name=${branch_or_commit_id:-"$current_branch"}
+  local real_branch=$(ud_convert_branchname $branch_name);
+
   local commit=$(git rev-parse $real_branch);
 
   local repo_http_url=$(get_repo_http_url)
