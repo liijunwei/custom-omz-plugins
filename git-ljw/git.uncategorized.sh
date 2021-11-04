@@ -22,10 +22,15 @@ function git-tag-stable() {
   git tag ${tag_name}
 }
 
+function ud_convert_branchname(){
+  local raw_branchname=$1;
+  echo $raw_branchname | tr '-' '_' | tr "[:upper:]" "[:lower:]";
+}
+
 unalias gco
 function gco() {
   local original_branch_name=$1;
-  local branch_name=$(echo $original_branch_name | tr '-' '_' | tr "[:upper:]" "[:lower:]");
+  local branch_name=$(ud_convert_branchname $original_branch_name);
   git checkout $branch_name;
 
   result=$?
@@ -52,7 +57,7 @@ function gcobp() {
     return 1;
   fi
 
-  local branch_name=$(echo $1 | tr '-' '_' | tr "[:upper:]" "[:lower:]")
+  local branch_name=$(ud_convert_branchname $1);
   git checkout -b $branch_name;
   git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD);
 }
