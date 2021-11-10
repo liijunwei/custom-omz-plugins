@@ -6,7 +6,6 @@ alias cm='gaa;gcmsg "$(prepend_commit_message)Commit manually.";gp;'
 alias c='cm'
 alias d='git add . && git diff --staged | tig'
 alias fix="gaa;gcmsg 'FIX.';gp;"
-alias g='git show HEAD | tig'
 alias gbb='git branch -vv | cat'
 alias gcam='git commit -v -a --no-edit --amend'
 alias gcob="git checkout -b"
