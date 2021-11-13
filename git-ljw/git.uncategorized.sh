@@ -67,7 +67,7 @@ function get-commit-message-by-commit-id() {
   git log --format=%B -n 1 $commit_id | cat
 }
 
-# 获取前N个commit的commit号, 用于cherry-pick
+# Get first N commit ids, for cherry-pick use
 function get-0-to-N-commits() {
   local commit_id=$1
   echo "找出 $(git rev-parse --abbrev-ref HEAD) 分支最新的 (0..$commit_id) commits"
