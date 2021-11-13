@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function prepend_commit_message {
-  if [ -z "$branches_to_skip" ]; then
-    branches_to_skip=(
+  if [ -z "$BRANCHES_TO_SKIP" ]; then
+    BRANCHES_TO_SKIP=(
       master
       incidents
       main
@@ -21,10 +21,10 @@ function prepend_commit_message {
   fi
 
   local current_branch=$(git rev-parse --abbrev-ref HEAD)
-  local branch_excluded=$(printf "%s\n" "${branches_to_skip[@]}" | grep -c "^$current_branch$")
+  local branch_excluded=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$current_branch$")
 
   if [[ $branch_excluded -eq 0 ]]; then
-    prepended_info=$(
+    local prepended_info=$(
       git rev-parse --abbrev-ref HEAD |
       tr -d '_'                       |
       sed 's/\(....\)/&-/g'           |
