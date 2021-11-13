@@ -49,12 +49,12 @@ function gst() {
   git log | head -n1;
 }
 
-# 使用别名不好实现
+# It's hard to implemented by alias
 # git checkout -b xxx && git push --set-upstream origin xxx
 function gcobp() {
   if [ $# -eq 0 ]; then
-    echo "作用: checkout一个新分支, 并且推送到远端仓库."
-    return 1;
+    echo "Usage: checkout new branch and push to origin."
+    return 0;
   fi
 
   local branch_name=$(ud_convert_branchname $1);
