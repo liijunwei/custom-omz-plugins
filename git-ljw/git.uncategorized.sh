@@ -46,7 +46,13 @@ function gco() {
 unalias gst
 function gst() {
   git status
-  git log | head -n1;
+  echo
+
+  local commit_id=$(git rev-parse HEAD)
+  local commit_msg=$(get-commit-message-by-commit-id $commit_id)
+  echo "HEAD CommitID:  $commit_id"
+  echo "HEAD CommitMsg: $commit_msg"
+  echo
 }
 
 # It's hard to implemented by alias
