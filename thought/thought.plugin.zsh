@@ -25,7 +25,10 @@ function thought() {
 
   hexo clean  &&
   hexo deploy &&
-  ssh webuser@xiaoli "cd /srv/www/blog-gallary && git pull"
+  ssh webuser@xiaoli "cd /srv/www/blog-gallary &&
+                      git fetch         &&
+                      git checkout main &&
+                      git reset --hard HEAD@{u}"
 
   cd -
 }
