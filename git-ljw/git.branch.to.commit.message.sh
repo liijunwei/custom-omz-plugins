@@ -6,6 +6,7 @@ function prepend_commit_message {
       master
       incidents
       main
+      tmp
       ljw
       cv_zh
       cv_en

@@ -31,4 +31,6 @@ function thought() {
                       git reset --hard HEAD@{u}"
 
   cd -
+  echo
+  echo "open $BLOG_DOMAIN/thoughts"
 }

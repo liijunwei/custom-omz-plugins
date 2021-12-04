@@ -21,3 +21,4 @@ plugins=(
 source $HOME/.zshrc
 ```
 
++ TODO 整理出插件需要的环境变量, 统一管理, 降低重用的成本
