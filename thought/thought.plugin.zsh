@@ -15,6 +15,14 @@ function thought() {
     return 0
   fi
 
+  if [ "$1" = "--interactive" -o "$1" = "-i" ]; then
+    echo -n "Please type in your thoughts(ctrl+c to interrupt): "
+    read msg
+    if [ $? != 0 ]; then return $?; fi
+
+    local content="$(date "+%Y-%m-%d %H:%M:%S") $msg"
+  fi
+
   echo $content
   # macos use gsed, not builtin sed
   gsed -i "6i - ${content}" $thoughts_filepath
