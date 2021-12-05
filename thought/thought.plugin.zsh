@@ -10,8 +10,7 @@ function thought() {
   cd $HOME/OuterGitRepo/blog-gallary
 
   if [ "$1" = "--edit" -o "$1" = "-e" ]; then
-    subl .
-    subl source/thoughts/index.md
+    vi source/thoughts/index.md
     return 0
   fi
 
