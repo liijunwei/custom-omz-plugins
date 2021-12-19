@@ -8,6 +8,7 @@ function prepend_commit_message {
       main
       tmp
       ljw
+      ljw_fix_doc
       cv_zh
       cv_en
       sh_master
