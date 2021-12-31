@@ -31,7 +31,7 @@ unalias gco
 function gco() {
   local original_branch_name=$1;
   local branch_name=$(ud_convert_branchname $original_branch_name);
-  git checkout $branch_name;
+  git checkout $([[ $branch_name == origin/* ]] && echo "$branch_name" | tr  '/' ' ' | awk '{print $2}' || echo $branch_name);
 
   result=$?
   if [ "$result" != "0" ]; then
