@@ -31,7 +31,7 @@ unalias gco
 function gco() {
   local original_branch_name=$1;
   local branch_name=$(ud_convert_branchname $original_branch_name);
-  git checkout $([[ $branch_name == origin/* ]] && echo "$branch_name" | tr  '/' ' ' | awk '{print $2}' || echo $branch_name);
+  git checkout $([[ $branch_name == origin/* || $branch_name == remotes/origin/* ]] && echo "$branch_name" | tr  '/' ' ' | awk '{print $NF}' || echo $branch_name);
 
   result=$?
   if [ "$result" != "0" ]; then
@@ -92,5 +92,21 @@ function git-show-commit-files() {
   fi
 
   git show --pretty="" --name-only $commit_id | cat
+}
+
+function ccc() {
+  local commit_msg=$1
+  local default_msg="Code cleanup"
+
+  git add .
+
+  if [ -z "${commit_msg}" ]; then
+    local commit_msg=$(git rev-parse --abbrev-ref HEAD)
+    git commit -m "$default_msg."
+    return 0;
+  fi
+
+  git commit -m "$default_msg: $commit_msg."
+  git push
 }
 
