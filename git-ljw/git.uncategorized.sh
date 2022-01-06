@@ -51,7 +51,7 @@ function gst() {
   local commit_id=$(git rev-parse HEAD)
   local commit_msg=$(get-commit-message-by-commit-id $commit_id)
   echo "HEAD CommitID:  $commit_id"
-  echo "HEAD CommitMsg: $commit_msg"
+  echo -e "HEAD CommitMsg:\n$commit_msg"
   echo
 }
 
