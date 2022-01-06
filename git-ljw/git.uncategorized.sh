@@ -45,7 +45,13 @@ function gco() {
 
 unalias gst
 function gst() {
-  git status
+  git status 2> /dev/null
+
+  if [ $? -eq 128 ]; then
+    echo "Current directory is not a git repository."
+    return 0;
+  fi
+
   echo
 
   local commit_id=$(git rev-parse HEAD)
