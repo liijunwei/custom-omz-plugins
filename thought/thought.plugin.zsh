@@ -27,11 +27,11 @@ function thought() {
   gsed -i "6i - ${content}" $thoughts_filepath
   gsed -i "6G" $thoughts_filepath
 
-  git add . && git commit -m "Commit manually." &&
-  git push &&
-
-  hexo clean  &&
-  hexo deploy &&
+  git add . &&
+  git commit -m "Commit manually." --quiet &&
+  git push --quiet &&
+  hexo clean  >/dev/null &&
+  hexo deploy >/dev/null &&
   ssh webuser@xiaoli "cd /srv/www/blog-gallary &&
                       git fetch         &&
                       git checkout main &&
