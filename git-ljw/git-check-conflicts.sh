@@ -2,5 +2,5 @@
 
 function git-check-confliecs(){
   output=$(git grep -En '^<<<<<<< ')
-  echo $output
+  echo ${output:-"No Confliecs Found"}
 }
