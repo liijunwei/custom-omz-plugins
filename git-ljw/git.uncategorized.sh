@@ -112,8 +112,8 @@ function ccc() {
   git add .
 
   if [ -z "${commit_msg}" ]; then
-    local commit_msg=$(git rev-parse --abbrev-ref HEAD)
     git commit -m "$default_msg."
+    git push;
     return 0;
   fi
 
