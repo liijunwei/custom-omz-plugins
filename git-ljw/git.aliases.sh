@@ -10,6 +10,6 @@ alias gcam='git commit -v -a --no-edit --amend'
 alias gcob="git checkout -b"
 alias gpo='git push origin '
 alias groh='git reset --hard HEAD@{u}'
-alias jj="gaa;gcmsg 'DEBUG.';gp;"
+alias jj="gaa;gcmsg 'Debugging.';gp;"
 alias t="tig"
 alias tt='tig --all'
