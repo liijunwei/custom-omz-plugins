@@ -4,5 +4,5 @@
 # prerequisite: https://github.com/junegunn/fzf
 function git-grep-commits() {
   local keyword=$1
-  git log -S "$keyword" --source --all | fzf
+  git log -S "$keyword" --source --all | cat
 }
