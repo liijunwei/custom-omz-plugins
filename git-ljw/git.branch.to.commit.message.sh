@@ -1,31 +1,27 @@
 #!/bin/bash
 
-function prepend_commit_message {
-  if [ -z "$BRANCHES_TO_SKIP" ]; then
-    BRANCHES_TO_SKIP=(
-      master
-      incidents
-      main
-      tmp
-      ljw
-      fixdoc
-      cv_zh
-      cv_en
-      sh_master
-      s2_master
-      s3_master
-      s4_master
-      s5_master
-      develop
-      test
-      week
-    )
+function start_with() {
+  local branch=$(echo $1 | tr '[:lower:]' '[:upper:]')
+  local prefix=$(echo $2 | tr '[:lower:]' '[:upper:]')
+
+  if [[ $branch = $prefix* ]]; then
+    echo "FOUND"
   fi
+}
 
+function prepend_commit_message {
   local current_branch=$(git rev-parse --abbrev-ref HEAD)
-  local branch_excluded=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$current_branch$")
+  local flag_found=""
 
-  if [[ $branch_excluded -eq 0 ]]; then
+  for prefix in $WHITELIST_BRANCH_PREFIX; do
+    local result=$(start_with "$current_branch" "$prefix")
+    if [[ $result = "FOUND" ]]; then
+      flag_found="$result"
+      break
+    fi
+  done
+
+  if [[ $flag_found = "FOUND" ]]; then
     local prepended_info=$(
       git rev-parse --abbrev-ref HEAD |
       tr -d '_'                       |
