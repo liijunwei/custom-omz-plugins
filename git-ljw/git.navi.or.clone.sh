@@ -5,10 +5,10 @@ function goto_or_goto_and_clone() {
 
   local git_repo_url=$2
   if [[ "" == "$git_repo_url" ]]; then
-    return 1
+    return 0
   else
     gcll "$git_repo_url"
-    return 2
+    return 0
   fi
 }
 
