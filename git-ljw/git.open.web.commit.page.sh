@@ -10,18 +10,9 @@ function git-view-in-web() {
   local real_branch=$(ud_convert_branchname $branch_name);
 
   local commit=$(git rev-parse $real_branch);
-
   local repo_http_url=$(get_repo_http_url)
-
-  if [[ "$repo_http_url" == *"$UDESK_DEV_DOMAIN"* ]]; then
-    local repo_without_dot_git=$(get_repo_http_url | grep -Eo ".*com/udesk")
-    local url="${repo_without_dot_git}/${project_name}/commit/${commit}"
-  else
-    # github
-    local repo_with_dot_git=$(get_repo_http_url)
-    local repo_without_dot_git=${repo_with_dot_git%".git"}
-    local url="${repo_without_dot_git}/commit/${commit}"
-  fi
+  local repo_without_dot_git=$(dirname $repo_http_url)/$(basename $repo_http_url .git)
+  local url="${repo_without_dot_git}/commit/${commit}"
 
   cat <<EOF
 
