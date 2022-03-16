@@ -1,12 +1,11 @@
 #!/bin/bash
 
 function gcll() {
-  local remote_repo_name=$1
-  local local_repo_dir_with_dot_git=${remote_repo_name:t}    # get last partial
-  local local_repo_dir=${local_repo_dir_with_dot_git%".git"} # get rid of `.git`
+  local repo_url=$1
+  local repo_dir=$(basename $repo_url .git)
 
-  git clone ${remote_repo_name}
-  cd ${local_repo_dir}
+  git clone $repo_url
+  cd $repo_dir
   pwd
   echo "=========================================="
   git status
