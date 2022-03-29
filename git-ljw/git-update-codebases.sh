@@ -3,6 +3,7 @@ MASTER_OR_MAIN_BRANCHE=(
   master
 )
 
+# TODO 使用多线程或多进程加速这个过程
 function update-all-codebases() {
   local current_dir=$(pwd)
 
