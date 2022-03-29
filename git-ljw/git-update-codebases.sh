@@ -8,7 +8,7 @@ function update-all-codebases() {
 
   for project in $(ls); do
     cd $project
-    echo "Update for project $project"
+    echo_red "Updating $project"
     echo "========================================="
     local current_branch=$(git rev-parse --abbrev-ref HEAD)
 
