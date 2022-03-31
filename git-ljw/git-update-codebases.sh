@@ -7,21 +7,28 @@ MASTER_OR_MAIN_BRANCHE=(
 function update-all-codebases() {
   local current_dir=$(pwd)
 
-  for project in $(ls); do
+  for project in $(ls -d */); do
     cd $project
-    echo_red "Updating $project"
-    echo "========================================="
-    local current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-    git fetch
+    local result=$(git rev-parse --is-inside-work-tree &> /dev/null; echo $?)
 
-    for branch in ${MASTER_OR_MAIN_BRANCHE[@]}; do
-      git checkout $branch
-      git add .
-      git reset --hard HEAD@{u}
-    done
+    if [ "$result" = "0" ]; then
+      echo_red "Updating $project"
+      echo "========================================="
+      local current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-    git checkout $current_branch
+      git fetch
+
+      for branch in ${MASTER_OR_MAIN_BRANCHE[@]}; do
+        git checkout $branch
+        git add .
+        git reset --hard HEAD@{u}
+      done
+
+      git checkout $current_branch
+    else
+      echo_red "Not a git repository: $(pwd)"
+    fi
 
     cd ..
   done
