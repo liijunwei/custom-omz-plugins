@@ -1,3 +1,7 @@
+# This is not how omz plugin should work, going to split these plugins into seperate repo.
+
+Archived.
+
 # Magic Therein
 
 Suggestions are welcome.
